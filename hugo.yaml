@@ -1,0 +1,26 @@
+baseURL: https://jake88dev.github.io
+languageCode: en-us
+title: My New Hugo Site
+theme: ["PaperMod"]
+
+enableRobotsTXT: true # 검색 엔진 크롤링 허용
+
+params:
+  mainSections: ["posts"] # 홈 페이지에서 표시할 기본 섹션
+  defaultTheme: auto  # 다크 모드 자동 설정
+  ShowBreadCrumbs: true  # 페이지 상단에 탐색 경로 표시
+  ShowCodeCopyButtons: true  # 코드 블록에 복사 버튼 추가
+  ShowToc: true  # 본문에 목차 표시
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true  # HTML 태그가 포함된 마크다운을 허용
+  highlight:
+    noClasses: false  # 코드 하이라이팅 설정

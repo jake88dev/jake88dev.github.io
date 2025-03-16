@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Emacs Org-mode &#43; Hugo &#43; Github-page 로 블로그 만들기 | My New Hugo Site</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+emacs org-mode로 글 쓰는 걸 좋아해서 이를 활용한 블로깅 방법에 대해 알아봤다. 
+org파일을 md파일로 바꾸고 md파일로 정적 사이트를 생성하는 방식이다. 
+
+정적 사이트를 생성해주는 툴은 여러가지인걸로 알고 있는데, 
+org파일을 ox-hugo 패키지로 md파일 변환할 수 있는 장점이 있어 hugo로 선택했다.
+
+무료로 호스팅하기 위한 방법으론 Github-page를 선택했다. 
+[깃허브계정].github.io 도메인으로 서비스 가능하다. 
+
+
+hugo 설치
+
+
+맥환경이라 brew를 이용해 설치했다. 
+
+brew install hugo
+
+
+
+
+
+hugo 프로젝트 생성
+
+
+[깃허브계정].github.io 패턴으로 프로젝트를 생성한다. 
+jake88dev 가 깃허브 계정이다. ">
+<meta name="author" content="KIM TAEHEON">
+<link rel="canonical" href="http://localhost:1313/org/2025-03-16-emacs-org-hugo-blogging/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/org/2025-03-16-emacs-org-hugo-blogging/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/org/">Orgs</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Emacs Org-mode &#43; Hugo &#43; Github-page 로 블로그 만들기
+    </h1>
+    <div class="post-meta"><span title='2025-03-16 00:00:00 +0000 UTC'>March 16, 2025</span>&nbsp;·&nbsp;KIM TAEHEON
+
+</div>
+  </header> 
+
+  <div class="post-content">
+<p>
+emacs org-mode로 글 쓰는 걸 좋아해서 이를 활용한 블로깅 방법에 대해 알아봤다. 
+org파일을 md파일로 바꾸고 md파일로 정적 사이트를 생성하는 방식이다. </p>
+<p>
+정적 사이트를 생성해주는 툴은 여러가지인걸로 알고 있는데, 
+org파일을 ox-hugo 패키지로 md파일 변환할 수 있는 장점이 있어 hugo로 선택했다.</p>
+<p>
+무료로 호스팅하기 위한 방법으론 Github-page를 선택했다. 
+<code>[깃허브계정].github.io</code> 도메인으로 서비스 가능하다. </p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+hugo 설치
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>맥환경이라 brew를 이용해 설치했다. </p>
+<div class="src src-bash">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install hugo</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+hugo 프로젝트 생성
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p><code>[깃허브계정].github.io</code> 패턴으로 프로젝트를 생성한다. 
+<code>jake88dev</code> 가 깃허브 계정이다. </p>
+<div class="src src-bash">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new site jake88dev.github.io --format yaml
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> jake88dev.github.io</span></span></code></pre></div>
+</div>
+<p><code>--format yaml</code> 옵션은 <a href="https://github.com/adityatelange/hugo-PaperMod/wiki/Installation">PaperMod 테마의 깃허브 페이지 &gt; 위키</a>에 설치법대로 적용한 것이다.
+저 옵션을 안주면 <code>hugo server -D</code> 로 로컬 서버를 실행했을 때 <code>Page not found</code> 가 뜬다. </p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+테마 적용 
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>ChatGPT에게 ox-hugo와 호환이 잘되는 테마를 추천해달라고 질문하니, <code>PaperMod</code> 를 추천했다. 
+아래 코드로 설치.</p>
+<div class="src src-bash">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git submodule add https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod</span></span></code></pre></div>
+</div>
+<p>
+<code>hugo.yaml</code> 파일에 아래 설정 추가.</p>
+<div class="src src-yaml">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;PaperMod&#34;</span><span class="p">]</span></span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+포스트 파일 추가.
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p><code>content</code> 폴더 하위에 <code>org</code> 폴더를 만들고 블로그 글을 추가한다. 
+header에는 다음과 같은 내용을 적어준다. 
+각 역할은 주석을 참고.</p>
+<pre class="example">
+#+hugo_base_dir: ../..       # Hugo 프로젝트의 루트 디렉토리를 설정. org파일을 md파일로 변환시 유용.
+#+HUGO_SECTION: ./posts      # 변환된 md파일이 저정될 폴더. 
+#+HUGO_WEIGHT: auto          # 포스트 정렬순서를 결정하는 가중치. auto이면 최신글이 우선 정렬됨.
+#+HUGO_AUTO_SET_LASTMOD: t   # org파일 수정시 Last Modified(lastmod)값이 자동으로 설정됨.
+#+HUGO_TAGS: emamcs hugo     # 태그 적용 
+#+TITLE: Emacs Org-mode...   # 포스트 제목 
+#+AUTHOR: KIM TAEHEON        # 저자 
+#+DATE: 2025-03-16           # 포스팅 날짜
+</pre>
+<p>
+그리고 하위에 org모드로 글쓰듯이 내용을 적어주면 된다. </p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+md파일 변환 
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>ox-hugo 패키지가 필요하다. emacs 사용자가 아니면 이해가 어려운 내용.
+config 파일에 아래 내용을 추가했다. </p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">use-package</span> <span class="nv">ox-hugo</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:ensure</span> <span class="no">t</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:after</span> <span class="nv">ox</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:config</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">org-hugo-default-section-directory</span> <span class="s">&#34;posts&#34;</span><span class="p">))</span></span></span></code></pre></div>
+</div>
+<p>
+그리고 변환할 파일에서 <code>C-c C-e H H</code> 를 실행하면 md파일로 변환된다. </p>
+<p><img src="../../static/images/20250316-210810_screenshot.png" alt="../../static/images/20250316-210810_screenshot.png" title="../../static/images/20250316-210810_screenshot.png" /></p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+hugo.yaml 수정
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p><a href="https://github.com/adityatelange/hugo-PaperMod/wiki/Installation">PaperMod 테마의 깃허브 페이지 &gt; 위키</a>에 <code>hugo.yml</code> 샘플이 있는데, 
+뭘 설정한건지 잘 모르겠고 필수가 아닌것도 있는거 같아서
+ChatGPT에게 필요한 설정만 골라달라고 했다. </p>
+<div class="src src-yaml">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">baseURL</span><span class="p">:</span><span class="w"> </span><span class="l">https://jake88dev.github.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">languageCode</span><span class="p">:</span><span class="w"> </span><span class="l">en-us</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">My New Hugo Site</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;PaperMod&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">enableRobotsTXT</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 검색 엔진 크롤링 허용</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mainSections</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;posts&#34;</span><span class="p">]</span><span class="w"> </span><span class="c"># 홈 페이지에서 표시할 기본 섹션</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaultTheme</span><span class="p">:</span><span class="w"> </span><span class="l">auto </span><span class="w"> </span><span class="c"># 다크 모드 자동 설정</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ShowBreadCrumbs</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># 페이지 상단에 탐색 경로 표시</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ShowCodeCopyButtons</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># 코드 블록에 복사 버튼 추가</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ShowToc</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># 본문에 목차 표시</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">outputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">home</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">HTML</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">RSS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">JSON</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">markup</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">goldmark</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">renderer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">unsafe</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># HTML 태그가 포함된 마크다운을 허용</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">highlight</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">noClasses</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c"># 코드 하이라이팅 설정</span></span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+실행화면 
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p><code>hugo server -D</code> 명령어를 실해하면 <a href="http://localhost:1313">http://localhost:1313</a> 으로 로컬서버를 띄울 수 있다. </p>
+<ul>
+<li>첫페이지</li>
+</ul>
+<p><img src="../../static/images/20250316-234231_screenshot.png" alt="../../static/images/20250316-234231_screenshot.png" title="../../static/images/20250316-234231_screenshot.png" /></p>
+<ul>
+<li>블로그 페이지</li>
+</ul>
+<p><img src="../../static/images/20250316-234330_screenshot.png" alt="../../static/images/20250316-234330_screenshot.png" title="../../static/images/20250316-234330_screenshot.png" /></p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+참고
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<ul>
+<li><a href="https://yeongcheon.github.io/posts/2019-03-03-github+hugo+orgmode_setup/">https://yeongcheon.github.io/posts/2019-03-03-github+hugo+orgmode_setup/</a></li>
+<li><a href="https://github.com/kaushalmodi/ox-hugo/">https://github.com/kaushalmodi/ox-hugo/</a></li>
+<li><a href="https://github.com/adityatelange/hugo-PaperMod/wiki/Installation">https://github.com/adityatelange/hugo-PaperMod/wiki/Installation</a></li>
+</ul>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">My New Hugo Site</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Emamcs on My New Hugo Site</title>
+    <link>http://localhost:1313/tags/emamcs/</link>
+    <description>Recent content in Emamcs on My New Hugo Site</description>
+    <generator>Hugo -- 0.145.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Mar 2025 21:08:58 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/emamcs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Emacs Org-mode &#43; Hugo &#43; Github-page 로 블로그 만들기</title>
+      <link>http://localhost:1313/posts/2025-03-16-emacs-org-hugo-blogging/</link>
+      <pubDate>Sun, 16 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2025-03-16-emacs-org-hugo-blogging/</guid>
+      <description>&lt;p&gt;emacs org-mode로 글 쓰는 걸 좋아해서 이를 활용한 블로깅 방법에 대해 알아봤다.
+org파일을 md파일로 바꾸고 md파일로 정적 사이트를 생성하는 방식이다.&lt;/p&gt;
+&lt;p&gt;정적 사이트를 생성해주는 툴은 여러가지인걸로 알고 있는데,
+org파일을 ox-hugo 패키지로 md파일 변환할 수 있는 장점이 있어 hugo로 선택했다.&lt;/p&gt;
+&lt;p&gt;무료로 호스팅하기 위한 방법으론 Github-page를 선택했다.
+`[깃허브계정].github.io` 도메인으로 서비스 가능하다.&lt;/p&gt;
+&lt;h2 id=&#34;hugo-설치&#34;&gt;hugo 설치&lt;/h2&gt;
+&lt;p&gt;맥환경이라 brew를 이용해 설치했다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;hugo-프로젝트-생성&#34;&gt;hugo 프로젝트 생성&lt;/h2&gt;
+&lt;p&gt;`[깃허브계정].github.io` 패턴으로 프로젝트를 생성한다.
+`jake88dev`가 깃허브 계정이다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo new site jake88dev.github.io
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; jake88dev.github.io
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;테마-적용&#34;&gt;테마 적용&lt;/h2&gt;
+&lt;p&gt;ChatGPT에게 ox-hugo와 호환이 잘되는 테마를 추천해달라고 질문하니, `PaperMod`를 추천했다.
+아래 코드로 설치.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
