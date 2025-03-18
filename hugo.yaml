@@ -1,6 +1,6 @@
 baseURL: https://jake88dev.github.io
 languageCode: en-us
-title: My New Hugo Site
+title: Jake88's Dev Blog
 theme: ["PaperMod"]
 
 enableRobotsTXT: true # 검색 엔진 크롤링 허용
