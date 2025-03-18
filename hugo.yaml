@@ -24,3 +24,7 @@ markup:
       unsafe: true  # HTML 태그가 포함된 마크다운을 허용
   highlight:
     noClasses: false  # 코드 하이라이팅 설정
+
+caches:
+  images:
+    dir: :cacheDir/images
